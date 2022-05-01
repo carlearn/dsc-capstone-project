@@ -1,87 +1,109 @@
 # Capstone Project
 
-Congratulations on making it to the Capstone project! It's been a long journey, but we can finally see the light at the end of the tunnel!
+This is the final project of Flatiron Decision Science bootcamp program. 
 
-![Actual Footage of you seeing the light at the end of the tunnel](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project/main/images/end-of-tunnel.gif)
 
-Now that you've learned all the material in our course, it's time to show off and flex your data science muscles with your own **_Capstone Project_**! This project will allow you to showcase everything you've learned as a data scientist to by completing a professional-level data science project of your choosing. This project will be significantly larger than any project you've completed so far, and will be the crown jewel of your portfolio. A strong capstone project is the single most important thing you can do to get the attention of potential employers, so be prepared to put as much effort into this project as possible - the results will be **_worth it!_**
+## Project Overview: Predicting the Market Value of FIFA Soccer Players
 
-![Your portfolio brings all the employers to your inbox](https://raw.githubusercontent.com/learn-co-curriculum/dsc-capstone-project/main/images/milkshake.gif)
+### Overview
 
-## Project Overview
+As a soccer fan, I am very excited for the rating release every year and have a strong interest in understanding what factors determine the market value of soccer players. According to FIFA's description of its' Ratings Collective, the overall ratings are based on the attributes. Therefore, for this project, we will focus on the prediction of players' market value using these attributes.
 
-Your Capstone project should develop a data product or analysis related to a single topic of your choice. You are free to choose any topic and use any data, so long as your project meets the requirements below.
+We will leverage the data source Kaggle FIFA 22 complete player dataset, which covers the players data (with 100+ attributes) for the Career Mode from FIFA 15 to FIFA 22, and allows multiple comparisons for the same players across the last 8 version of the videogame. We will focus on the FIFA 2022 data sets.
 
-### Choosing a Topic
+Our objective is to build a regression model to predict the market value of soccer ball players and understand what key factors determine the market value of soccer players by what amount.
 
-When choosing a topic, think through these questions:  
+Our approach will build regression models with three approaches: linear regression, random forest and XGBoost to get the best prediction of players' market value.
 
-* What would I be motivated to work on?
-* What data could I use?
-* How could an individual or organization use my product or findings?
-* What will I be able to accomplish in the time I have available?
-* What challenges do I foresee with this project?
 
-### Sourcing Your Own Data
+### Exploratory Data Analysis
 
-Sourcing new data is a valuable skill for data scientists, but it requires a great deal of care. An inappropriate dataset or an unclear business problem can lead you spend a lot of time on a project that delivers underwhelming results. The guidelines below will help you complete a project that demonstrates your ability to engage in the full data science process.
+#### Data Cleaning
 
-Your data must be...
+We removed the players who do not have market value in 2022, replaced the missing values with zero, and selected the players who are in level 1 league.
 
-1. **Appropriate for supervised learning models.** You may use unsupervised learning methods in your project (e.g. to generate cluster assignment labels), but there must be a substantial supervised learning component.
+We also conducted One-Hot Encoding on categorical data for further analysis. 
 
-2. **Usable to solve a specific business problem.** This solution must rely on your model(s).
 
-3. **Somewhat complex.** It should contain thousands of rows and features that require creativity to use. You _can_ use a pre-existing clean dataset, but you should consider combining it with other datasets and/or engineering your own features.
+#### Data Visualization 
 
-4. **Unfamiliar.** It can't be one we've already worked with during the course or that is commonly used for demonstration purposes (e.g. MNIST).
+We visualized the data for attributes analysis to check the relationship between market value and each single attributes. 
 
-5. **Manageable.** Stick to data that you can model with the knowledge and computational resources you have.
+Here are some highlighted attributes which are also in the Top 10 Feature Importance of Selected Regression Model.
 
-Once you've sourced your own data and identified the business problem you want to solve with it, you must to **run them by your instructor for approval**.
 
-#### Problem First, or Data First?
 
-There are two ways that you can source your own dataset: **_Problem First_** or **_Data First_**. The less time you have to complete the project, the more strongly we recommend a Data First approach to this project.
 
-**_Problem First_**: Start with a problem that you are interested in that you could potentially solve using one of the four project models. Then look for data that you could use to solve that problem. This approach is high-risk, high-reward: Very rewarding if you are able to solve a problem you are invested in, but frustrating if you end up sinking lots of time in without finding appropriate data. To mitigate the risk, set a firm limit for the amount of time you will allow yourself to look for data before moving on to the Data First approach.
+### Modeling - Linear Regression
 
-**_Data First_**: Take a look at some of the most popular internet repositories of cool data sets we've listed below. If you find a data set that's particularly interesting for you, then it's totally okay to build your problem around that data set.
+We conducted train-test-split and established 3 Linear Regression Models: baseline model, refined baseline model by removing uninfluential features by stepwise selection with p-values, and refined baseline model by transforming the data with MinMaxScaler. 
 
-There are plenty of amazing places that you can get your data from. We recommend you start looking at data sets in some of these resources first:
+The selected linear regression model is the refined baseline model by removing uninfluential features by stepwise selection with p-values. There are 38 attributes. The most important features (except nationality-related features which also matter) that determining the market value of the soccer players are:
 
-* [UCI Machine Learning Datasets Repository](https://archive.ics.uci.edu/ml/datasets.php)
-* [Kaggle Datasets](https://www.kaggle.com/datasets)
-* [Awesome Datasets Repo on Github](https://github.com/awesomedata/awesome-public-datasets)
+(1) Body type is Unique
+(2) Club position is Attacking Midfielder (Right, Left and Center as ranked in order)
+(3) High international reputation
+
+In respect of the model validation perspective, the selected Linear Regression Model performs well: Adjusted R-squared: 99.3%, RMSE for train data: 0.73, and RMSE for test data: 0.80.
+
+
+### Modeling - Machine Learning Regression
+
+We used the MinMaxScaler to transform the data and conducted train-test-split. We applied Decision Tree Regressor, Random Forest Regressor, XGBoost Regressor and Support Vector Regressor to run a regression model. 
+
+The best model is XGBRegressor() with the lowest test RMSE, better than that of Linear Regression.
+
+
+### Tuning XGBoost Regression with GridSearchCV 
+
+We applied GridSearchCV to tune XGBRegressor() in order to get a better result. Best parameters are {'colsample_bytree': 1, 'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 100}. The results are the same as the original parameters selection in the XGBRegressor().
+
+
+### Feature Importance 
+
+We leveraged XGBRegressor().feature_importances_ to obtain the top 10 attributes that have higher importance in determining the market value of soccer players.
+
+### Conclusion
+
+In consideration of the adjusted R-squared and lowest Root Mean Square Error (RMSE), we selected **XGBoost Regressor** (i.e., XGBRegressor()) as our best regression model to predict the market value of the soccer players. Based on the feature importance, the top 10 attributes are:
+
+    (1) release clause amount in eur
+    (2) movement sprint speed
+    (3) international reputation
+    (4) movement reactions
+    (5) shooting
+    (6) unique body type
+    (7) dribbling
+    (8) ball control skils
+    (9) volleys attacking
+    (10) weekly wages
+
+We summariezed them into three categories: 
+    (1) release clause value on contract and their weekly wages with the club, 
+    (2) specific physical attributes and skillsets, and 
+    (3) international reputation.
+
+#### Next steps
+
+1. Improve the parameter selection to tune the regression models:
+    
+    Given the limitation of the computation power, we did not take a deep dive into the tuning the parameters of GridSearchCV. In order to get a better result (more accurate prediction), it's important to spend more efforts to obtain the best parameters. We could leverage RandomizedSearchCV or HalvingGridSearchCV to increase the efficiency of parameters selection.
+
+2. Recategorize the original attributes:
+    
+    We notice that the large number of attributes results in the higher R-squared. Among them, nationality after one-hot encoding created many new attributes. A better way to solve the problem is to map the country into region (e.g., Europe, Asia, North America, South America, Africa and others).
+
+3. Incorporate FIFA ratings into the prediction of market value:
+    
+    We did not consider FIFA ratings in our current analysis given the FIFA ratings are derived from the attributes. However, there should be some relationship between FIFA ratings and market value. It could be another interesting topic to further discuss.
+    
 
 ## The Deliverables
 
-There are three deliverables for this project:
 
-* A **GitHub repository**
-* A **Jupyter Notebook**
-* A **non-technical presentation**
+* [GitHub repository](https://github.com/carlearn/dsc-capstone-project)
+* [Jupyter Notebook](https://github.com/carlearn/dsc-capstone-project/blob/main/student_notebook.ipynb)
+* [non-technical presentation]()
+* [Blog](https://medium.com/@carrielearn/predicting-the-market-value-of-fifa-soccer-players-db0df4e4a651)
 
-Review the "Project Submission & Review" page in the "Milestones Instructions" topic for instructions on creating and submitting your deliverables. Refer to the rubric associated with this assignment for specifications describing high-quality deliverables.
 
-### Key Points
-
-* **Project management is key.**  You have a lot of freedom in this project - this can feel liberating, but also means that you can accidentally lose a lot of time if you're not careful. Map out a rough daily project plan with key milestones and due dates for deliverables - you can adjust this as needed as you progress. Use this to make sure you're making timely progress towards successful completion. Ask for help if you find yourself struggling to keep up with your plan.
-
-* **Create an MVP, then refine it.** Once you've chosen a project, define a Minimum Viable Product (MVP) that you feel confident you can deliver, and set daily goals to get that done as soon as you can. This will reduce your anxiety about whether or when you can finish the project, and will give you the time you need to polish all of your deliverables so that they are super shiny for sharing with employers.
-
-* **Your deliverables should explicitly address each step of the data science process.** Refer to [the Data Science Process lesson](https://github.com/learn-co-curriculum/dsc-data-science-processes) from Topic 19 for more information about process models you can use.
-
-## Getting Started
-
-Create a new repository for your project to get started. We recommend structuring your project repository similar to the structure in [the Phase 1 Project Template](https://github.com/learn-co-curriculum/dsc-project-template). You can do this either by creating a new fork of that repository to work in or by building a new repository from scratch that mimics that structure.
-
-You can also check out [Capstone projects from former Flatiron DS students](https://github.com/learn-co-curriculum/dsc-capstone-examples) for inspiration.
-
-## Project Submission and Review
-
-Review the "Capstone Submission & Review" page in the "Milestones Instructions" topic to learn how to submit your project and how it will be reviewed. Your project must pass review for you to graduate from your program.
-
-## Summary
-
-The Capstone Project is the most critical part of the program. It gives you a chance to bring together all the skills you've learned into a realistic project, including the project management, business analysis, and communication.  Most importantly, it provides employers with strong signal about your technical abilities and allows you to show the world what an amazing Data Scientist you've become!
