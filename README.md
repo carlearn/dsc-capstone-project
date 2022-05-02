@@ -31,6 +31,15 @@ We visualized the data for attributes analysis to check the relationship between
 
 Here are some highlighted attributes which are also in the Top 10 Feature Importance of Selected Regression Model.
 
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Relationship%20between%20Market%20Value%20and%20Release%20Clause%20Value%20(in%20Million%20euros).png)
+
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Relationship%20between%20Market%20Value%20and%20Weekly%20Wage.png)
+
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Relationship%20between%20Market%20Value%20and%20International%20Reputation.png)
+
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Relationship%20between%20Market%20Value%20and%20Different%20Body%20Types.png)
+
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Relationship%20between%20Market%20Value%20and%20Club%20Positions.png)
 
 
 
@@ -63,20 +72,11 @@ We applied GridSearchCV to tune XGBRegressor() in order to get a better result. 
 
 We leveraged XGBRegressor().feature_importances_ to obtain the top 10 attributes that have higher importance in determining the market value of soccer players.
 
+![](https://github.com/carlearn/dsc-capstone-project/blob/main/charts/Feature%20Importance%20-%20Top%2010%20primary%20attributes%20of%20the%20Market%20Value%20of%20soccer%20players.png) 
+
 ### Conclusion
 
-In consideration of the adjusted R-squared and lowest Root Mean Square Error (RMSE), we selected **XGBoost Regressor** (i.e., XGBRegressor()) as our best regression model to predict the market value of the soccer players. Based on the feature importance, the top 10 attributes are:
-
-    (1) release clause amount in eur
-    (2) movement sprint speed
-    (3) international reputation
-    (4) movement reactions
-    (5) shooting
-    (6) unique body type
-    (7) dribbling
-    (8) ball control skils
-    (9) volleys attacking
-    (10) weekly wages
+In consideration of the adjusted R-squared and lowest Root Mean Square Error (RMSE), we selected **XGBoost Regressor** (i.e., XGBRegressor()) as our best regression model to predict the market value of the soccer players. 
 
 We summariezed them into three categories: 
     (1) release clause value on contract and their weekly wages with the club, 
@@ -103,7 +103,7 @@ We summariezed them into three categories:
 
 * [GitHub repository](https://github.com/carlearn/dsc-capstone-project)
 * [Jupyter Notebook](https://github.com/carlearn/dsc-capstone-project/blob/main/student_notebook.ipynb)
-* [non-technical presentation]()
+* [non-technical presentation](https://github.com/carlearn/dsc-capstone-project/blob/main/capstone_presentation.pptx)
 * [Blog](https://medium.com/@carrielearn/predicting-the-market-value-of-fifa-soccer-players-db0df4e4a651)
 
 
