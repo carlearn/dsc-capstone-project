@@ -11,9 +11,9 @@ As a soccer fan, I am very excited for the rating release every year and have a 
 
 We will leverage the data source Kaggle FIFA 22 complete player dataset, which covers the players data (with 100+ attributes) for the Career Mode from FIFA 15 to FIFA 22, and allows multiple comparisons for the same players across the last 8 version of the videogame. We will focus on the FIFA 2022 data sets.
 
-Our objective is to build a regression model to predict the market value of soccer ball players and understand what key factors determine the market value of soccer players by what amount.
+Our **objective** is to build a regression model to predict the market value of soccer players and understand what key factors determine the market value of soccer players by what amount. 
 
-Our approach will build regression models with three approaches: linear regression, random forest and XGBoost to get the best prediction of players' market value.
+Our **approach** is to establish multiple regression models with linear regression and machine learning regressors (i.e., Decision Tree, Random Forest, XGBoost and Support Vector Regressor) to get the best prediction of players' market value. 
 
 
 ### Exploratory Data Analysis
@@ -47,7 +47,7 @@ Here are some highlighted attributes which are also in the Top 10 Feature Import
 
 We conducted train-test-split and established 3 Linear Regression Models: baseline model, refined baseline model by removing uninfluential features by stepwise selection with p-values, and refined baseline model by transforming the data with MinMaxScaler. 
 
-The selected linear regression model is the refined baseline model by removing uninfluential features by stepwise selection with p-values. There are 38 attributes. The most important features (except nationality-related features which also matter) that determining the market value of the soccer players are:
+The selected linear regression model is the refined baseline model by removing uninfluential features by stepwise selection with p-values. There are 38 attributes. The most important features (except nationality-related features which also matter) that are determining the market value of the soccer players are:
 
 (1) Body type is Unique
 (2) Club position is Attacking Midfielder (Right, Left and Center as ranked in order)
